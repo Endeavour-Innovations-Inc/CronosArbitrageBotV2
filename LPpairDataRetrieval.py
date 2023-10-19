@@ -84,7 +84,7 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
 
     # Hardcode the amount to trade in USD
     # hardcoded_usd_amount = balance_in_usd
-    hardcoded_usd_amount = 73000
+    hardcoded_usd_amount = 100
 
     # Convert the amounts to trade into their dollar equivalent
     amount_to_trade_token0_usd = Decimal(amount_to_trade_token0_lq) * Decimal(token0_price)
@@ -325,36 +325,111 @@ async def main():
     # while True:
         # time.sleep(20)  # Pauses the program for 5 seconds
         web3 = Web3(Web3.HTTPProvider(network_rpc))
-        # check_lp_balance_for_vvs_corgiai_experimental('0xA922530960A1F94828A7E132EC1BA95717ED1eab') # VVS/Tonic
-        # check_lp_balance_for_vvs_corgiai_experimental('0x4B377121d968Bf7a62D51B96523d59506e7c2BF0') # CRO/Tonic
-        # check_lp_balance_for_vvs_corgiai_experimental('0xbf62c67eA509E86F07c8c69d0286C0636C50270b') # VVS/Cro
+        # VVS LP pairs
+        #check_lp_balance_for_vvs_corgiai_experimental('0x019d9479606FBDd4aCB16488e0aAE49E4684322b') # WETH-CRO
+        #check_lp_balance_for_vvs_corgiai_experimental('0x5383202D48C24aAA19873366168f2Ed558a00ff0') # WBTC-CRO -0.24
+        #check_lp_balance_for_vvs_corgiai_experimental('0x0101112C7aDdb2E8197922e9cFa17cbAA935ECCc') #WETH-WBTC 
         print("_________________________________________________________________________________________________")
-        # execute_trade("0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03", "0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2", 2077000000000000000000000, private_key, web3)
-        # check_lp_balance_for_vvs_corgiai_experimental('0x189291476338446c6e62c8a18ef22d3c80eb5f72') # CorgiAI/USDC
-        # check_lp_balance_for_vvs_corgiai_experimental('0x814920D1b8007207db6cB5a2dD92bF0b082BDBa1') # VVS/USDC
-        # check_lp_balance_for_vvs_corgiai_experimental('0xfc07bf38408e4326f99dec96ba94f1e28af68842') # VVS/CorgiAI
+        #check_lp_balance_for_vvs_corgiai_experimental('0x93fc0acf77edd68e611f8a776c9995f350f84274') # Mona - ETH
+        #check_lp_balance_for_vvs_corgiai_experimental('0x0b75163715c5d26aec23461c0499ffa626fd3021') # ETH - Zora -does not even work
+        #check_lp_balance_for_vvs_corgiai_experimental('0x2bbbf9dbf1e831fa3bce299b43415f54226da242') # Mona - Zora
         print("_________________________________________________________________________________________________")
-        check_lp_balance_for_vvs_corgiai_experimental('0xe61Db569E231B3f5530168Aa2C9D50246525b6d6') # CRO/USDC
-        check_lp_balance_for_vvs_corgiai_experimental('0xA111C17f8B8303280d3EB01BBcd61000AA7F39F9') # CRO/ETH
-        check_lp_balance_for_vvs_corgiai_experimental('0xfd0Cd0C651569D1e2e3c768AC0FFDAB3C8F4844f') # ETH/USDC
+        
+        #check_lp_balance_for_vvs_corgiai_experimental('0x67255a0ab5add6d65045e6e855842ca8b8a2b625') # WCRO-USDC
+        #check_lp_balance_for_vvs_corgiai_experimental('0xc0961175f0cdd04110220c4effb74221055dd547') # WCRO-USDT
+        #check_lp_balance_for_vvs_corgiai_experimental('0x0438a75009519f6284fa9e050e54d940302b2e93') # USDT-USDC
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('0x9d96706f31f520cb2404a3d2ad1a932b61a85acf') # VVS-WCRO
+        #check_lp_balance_for_vvs_corgiai_experimental('0x3da5b8e5907acfbe8a08b1f00394c97e07476f2d') # VVS-USDC 1
+        #check_lp_balance_for_vvs_corgiai_experimental('0x67255a0ab5add6d65045e6e855842ca8b8a2b625') # WCRO-USDC
+        print("_________________________________________________________________________________________________")
+        
+        #check_lp_balance_for_vvs_corgiai_experimental('0x8a513a09d9358e6ae46ff7c66b4d0e86769d04b4') # WCRO-WETH
+        #check_lp_balance_for_vvs_corgiai_experimental('0x736e7df5efad1cac1a312725598befbb27f8bb08') # USDC-WETH
+        #check_lp_balance_for_vvs_corgiai_experimental('0x67255a0ab5add6d65045e6e855842ca8b8a2b625') # WCRO-USDC
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('0x46d57ec4dc6a10d1a50a5f67accbff715ce81fda') # WBTC-WCRO
+        #check_lp_balance_for_vvs_corgiai_experimental('0x736e7df5efad1cac1a312725598befbb27f8bb08') # WBTC-USDC
+        #check_lp_balance_for_vvs_corgiai_experimental('0x67255a0ab5add6d65045e6e855842ca8b8a2b625') # WCRO-USDC
+        print("_________________________________________________________________________________________________")
+        
+        #check_lp_balance_for_vvs_corgiai_experimental('0x58bd242c1d2af2630318446ff3cf947925821de6') # CORGIAI-USDC
+        #check_lp_balance_for_vvs_corgiai_experimental('0x686c7ac3f635c67670b50b87ddd52518554aed2a') # WCRO-CORGIAI
+        #check_lp_balance_for_vvs_corgiai_experimental('0x67255a0ab5add6d65045e6e855842ca8b8a2b625') # WCRO-USDC
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('0x7901f798ab39a7b37e077fa7cfb473e591f134ca') # VVS-CORGIAI
+        #check_lp_balance_for_vvs_corgiai_experimental('0x3da5b8e5907acfbe8a08b1f00394c97e07476f2d') # VVS-USDC 1
+        #check_lp_balance_for_vvs_corgiai_experimental('0x58bd242c1d2af2630318446ff3cf947925821de6') # CORGIAI-USDC
+        print("_________________________________________________________________________________________________")
+        
+        #check_lp_balance_for_vvs_corgiai_experimental('0x08d819bf919f5d43880c9358c0648ad535880e64') # WCRO-TONIC
+        #check_lp_balance_for_vvs_corgiai_experimental('0x2bb6ff4651a1f591995295c71ac2ac9f8b44a910') # VVS-TONIC
+        #check_lp_balance_for_vvs_corgiai_experimental('0x9d96706f31f520cb2404a3d2ad1a932b61a85acf') # VVS-WCRO
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('0x9d96706f31f520cb2404a3d2ad1a932b61a85acf') # VVS-WCRO
+        #check_lp_balance_for_vvs_corgiai_experimental('0x47526aeda324c8c942b24d3ce8f6763667c52016') # VVS-USDC 2
+        #check_lp_balance_for_vvs_corgiai_experimental('0x67255a0ab5add6d65045e6e855842ca8b8a2b625') # WCRO-USDC
+        print("_________________________________________________________________________________________________")
+                
+        #check_lp_balance_for_vvs_corgiai_experimental('0x7901f798ab39a7b37e077fa7cfb473e591f134ca') # VVS-CORGIAI
+        #check_lp_balance_for_vvs_corgiai_experimental('0x47526aeda324c8c942b24d3ce8f6763667c52016') # VVS-USDC 2
+        #check_lp_balance_for_vvs_corgiai_experimental('0x58bd242c1d2af2630318446ff3cf947925821de6') # CORGIAI-USDC
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+        
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+                
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+        
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+                
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+        
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        #check_lp_balance_for_vvs_corgiai_experimental('') # 
+        print("_________________________________________________________________________________________________")
+        
 
 
 if __name__ == '__main__':
     load_dotenv()
     network_rpc = os.environ.get('NETWORK_RPC')
-    private_key = os.environ.get('PRIVATE_KEY')
-
-    # Token contract details (Replace these with the actual ABI and address)
-    token_contract_abi = load_contract_abi('VVS_abi.json')
-    token_contract_address = "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03"  # VVS
-
-    # Get token balance
-    balance = get_token_balance(network_rpc, private_key, token_contract_abi, token_contract_address)
-
-    if balance is not None:
-        token_price_in_usd = fetch_token_price_from_coingecko(token_contract_address)
-        balance_in_usd = balance * Decimal(token_price_in_usd)
-        print(f"Your token balance is: {balance} tokens (~${balance_in_usd:.2f} USD)")
 
     web3 = Web3(Web3.HTTPProvider(network_rpc))
 
