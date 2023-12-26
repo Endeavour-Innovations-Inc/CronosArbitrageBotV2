@@ -245,10 +245,9 @@ def main_arbitrage():
     lp2_result = check_lp_balance_for_vvs_corgiai_experimental('0x814920D1b8007207db6cB5a2dD92bF0b082BDBa1') # VVS/USDC
 
     # Compare the LPs
-    most_profitable_lp = compare_lps(lp1_result, lp2_result)
 
     # Check which LP is most profitable and execute trade accordingly
-    if most_profitable_lp == lp1_result:
+    if (most_profitable_lp := compare_lps(lp1_result, lp2_result)) == lp1_result:
         print(f"Executing trade for LP1 with {lp1_result['token0_name']}/{lp1_result['token1_name']}")
         # Determine which token you have in your wallet and how much to trade
         if lp1_result['dominant_token'] == 'token0':
