@@ -1,11 +1,10 @@
 import os
-import json
-import requests
 from web3 import Web3
-from datetime import datetime
 from dotenv import load_dotenv
 from decimal import Decimal
+import sys
 import time
+from datetime import datetime
 
 # Import functions from library.py
 from library import (
@@ -13,9 +12,12 @@ from library import (
     load_contract_abi,
     get_token_prices,
     calculate_imbalance_percent,
-    calculate_imbalance_percent_corgiai_usdc,
+    calculate_imbalance_percent_uint_6_18,
+    calculate_imbalance_percent_uint_18_6,
+    calculate_imbalance_percent_uint_6_6,
     is_lp_balanced,
     calculate_trade_amount_to_balance_lp,
+    get_lp_reserves,
 )
 
 # Declare global variables at the top of your script
@@ -27,11 +29,11 @@ def get_lp_reserves(lp_address, lp_abi):
     reserves = lp_contract.functions.getReserves().call()
     return reserves
 
-def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
+def uint18LPbalance(lp_address_str):
     print("_____________________________________________________________")
     print(f'Checking balance for LP pair at address EXPERIMENTAL {lp_address_str}...')
     lp_address = Web3.to_checksum_address(lp_address_str)
-    lp_abi = load_contract_abi('lp_contract_abi.json')  # Your function to load the ABI
+    lp_abi = load_contract_abi('ABIs/lp_contract_abi.json')  # Your function to load the ABI
 
     # Create a contract object using the same method you used in get_lp_reserves
     lp_contract = web3.eth.contract(address=lp_address, abi=lp_abi)
@@ -61,7 +63,13 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
     if token0_decimals == 18 and token1_decimals == 18:
         percentage_difference, reserve_token0_usd, reserve_token1_usd = calculate_imbalance_percent(reserves, (token0_price, token1_price))
     elif token0_decimals == 18 and token1_decimals == 6:
-        percentage_difference, reserve_token0_usd, reserve_token1_usd = calculate_imbalance_percent_corgiai_usdc(reserves, (token0_price, token1_price))
+        percentage_difference, reserve_token0_usd, reserve_token1_usd = calculate_imbalance_percent_uint_18_6(reserves, (token0_price, token1_price))
+    elif token0_decimals == 6 and token1_decimals == 18:
+        percentage_difference, reserve_token0_usd, reserve_token1_usd = calculate_imbalance_percent_uint_6_18(reserves, (token0_price, token1_price))
+    elif token0_decimals == 6 and token1_decimals == 6:
+        percentage_difference, reserve_token0_usd, reserve_token1_usd = calculate_imbalance_percent_uint_6_6(reserves, (token0_price, token1_price))                                                                                     
+    else:
+        print()
 
     print(f"Percentage difference between reserves: {percentage_difference:.2f}%")
     print(f"USD value of {token0_name} reserves: ${reserve_token0_usd:.2f}")
@@ -84,7 +92,7 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
 
     # Hardcode the amount to trade in USD
     # hardcoded_usd_amount = balance_in_usd
-    hardcoded_usd_amount = 73000
+    hardcoded_usd_amount = 100
 
     # Convert the amounts to trade into their dollar equivalent
     amount_to_trade_token0_usd = Decimal(amount_to_trade_token0_lq) * Decimal(token0_price)
@@ -117,6 +125,11 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
         discount_gain = Decimal(percentage_difference / 100) * Decimal(amount_to_trade_token0)
         swap_fee = Decimal(0.003) * Decimal(amount_to_trade_token0)
         gas_fee = Decimal(0.05) / Decimal(token0_price)
+    else:
+        toekn_name = ''
+        discount_gain = 0
+        swap_fee = 0
+        gas_fee = 0
 
     # Calculate Net Profit
     gross_gain = discount_gain
@@ -134,6 +147,11 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
         swap_fee_usd = swap_fee * Decimal(token0_price)
         gas_fee_usd = gas_fee * Decimal(token0_price)
         net_profit_usd = net_profit * Decimal(token0_price)
+    else:
+        discount_gain_usd = 0
+        swap_fee_usd = 0
+        gas_fee_usd = 0
+        net_profit_usd = 0
 
     print(f"Discount Gain on selling {toekn_name}: {discount_gain} (~${discount_gain_usd:.2f} USD)")
     print(f"Swap Fee on selling {toekn_name}: {swap_fee} (~${swap_fee_usd:.2f} USD)")
@@ -172,132 +190,6 @@ def compare_lps(lp1_result, lp2_result):
     else:
         print(f"LP2 with {lp2_result['token0_name']}/{lp2_result['token1_name']} is more profitable for arbitrage.")
         return lp2_result
-    
-def execute_trade(dominant_token, target_token, amount_to_trade, private_key, web3_instance): # works!!!!
-    # Initialize Web3
-    web3 = web3_instance
-
-    # Router contract address and ABI
-    router_address = '0x145863Eb42Cf62847A6Ca784e6416C1682b1b2Ae'  # Replace with actual address
-    router_abi = load_contract_abi('RouterABI.json')  # Replace with actual ABI
-
-    # Initialize contracts
-    router_contract = web3.eth.contract(address=router_address, abi=router_abi)
-
-    # Your wallet address
-    # print(dir(web3.eth.account))
-    my_account = web3.eth.account.from_key(private_key)
-    my_address = my_account.address
-
-    # Token contract addresses and ABIs for dominant and target tokens
-    dominant_token_address = dominant_token  # Replace with actual address
-    target_token_address = target_token  # Replace with actual address
-    token_abi = load_contract_abi('VVS_abi.json')  # Replace with actual ABI for both tokens
-
-    # Initialize token contracts
-    dominant_token_contract = web3.eth.contract(address=dominant_token_address, abi=token_abi)
-    target_token_contract = web3.eth.contract(address=target_token_address, abi=token_abi)
-
-    # Build the transaction for token approval
-    approve_txn = dominant_token_contract.functions.approve(
-        router_address,
-        amount_to_trade
-    ).build_transaction({
-        'chainId': 25,  # Cronos
-        'gas': 159397,
-        'gasPrice': web3.to_wei('4676', 'gwei'), # changed the amount of gas
-        'nonce': web3.eth.get_transaction_count(my_address),
-    })
-
-    # Sign the transaction
-    signed_approve_txn = web3.eth.account.sign_transaction(approve_txn, private_key)
-
-    # Send the transaction and wait for it to be mined
-    approval_tx_hash = web3.eth.send_raw_transaction(signed_approve_txn.rawTransaction)
-    web3.eth.wait_for_transaction_receipt(approval_tx_hash)
-
-    # Build the swap transaction
-    swap_txn = router_contract.functions.swapExactTokensForTokens(
-        amount_to_trade,
-        1,  # Minimum amount of target token to receive, set to a reasonable value
-        [dominant_token_address, target_token_address],  # Path (dominant_token -> target_token)
-        my_address,  # Recipient
-        int(time.time()) + 1200  # Deadline
-    ).build_transaction({
-        'chainId': 25,
-        'gas': 159397,
-        'gasPrice': web3.to_wei('4676', 'gwei'), # changed the amount of gas
-        'nonce': web3.eth.get_transaction_count(my_address),
-    })
-
-    # Sign the swap transaction
-    signed_swap_txn = web3.eth.account.sign_transaction(swap_txn, private_key)
-
-    # Send the swap transaction
-    swap_tx_hash = web3.eth.send_raw_transaction(signed_swap_txn.rawTransaction)
-    web3.eth.wait_for_transaction_receipt(swap_tx_hash)
-
-# TODO: Main Arbitrage Function
-def main_arbitrage():
-     # TODO: Identify Arbitrage Opportunities
-    # - We start with VVS in our wallet, therefore we need to check two lp pairs: VVS/USDC & VVS/CorgiAI
-    lp1_result = check_lp_balance_for_vvs_corgiai_experimental('0xfc07bf38408e4326f99dec96ba94f1e28af68842') # VVS/CorgiAI
-    lp2_result = check_lp_balance_for_vvs_corgiai_experimental('0x814920D1b8007207db6cB5a2dD92bF0b082BDBa1') # VVS/USDC
-
-    # Compare the LPs
-    most_profitable_lp = compare_lps(lp1_result, lp2_result)
-
-    # Check which LP is most profitable and execute trade accordingly
-    if most_profitable_lp == lp1_result:
-        print(f"Executing trade for LP1 with {lp1_result['token0_name']}/{lp1_result['token1_name']}")
-        # Determine which token you have in your wallet and how much to trade
-        if lp1_result['dominant_token'] == 'token0':
-            amount_to_trade = lp1_result['amount_to_trade_token0']
-        else:
-            amount_to_trade = lp1_result['amount_to_trade_token1']
-        
-        # Execute the trade
-        execute_trade(lp1_result['dominant_token'], amount_to_trade, other_parameters_here)
-    else:
-        print(f"Executing trade for LP2 with {lp2_result['token0_name']}/{lp2_result['token1_name']}")
-        
-        # Determine which token you have in your wallet and how much to trade
-        if lp2_result['dominant_token'] == 'token0':
-            amount_to_trade = lp2_result['amount_to_trade_token0']
-        else:
-            amount_to_trade = lp2_result['amount_to_trade_token1']
-        
-        # Execute the trade
-        execute_trade(lp2_result['dominant_token'], amount_to_trade, other_parameters_here)
-
-    # - Call the check_lp_balance_for_vvs_corgiai_experimental function
-    # - Check if the LP is imbalanced and offers an arbitrage opportunity
-
-    # TODO: Calculate Profit and Fees
-    # - Use the output from check_lp_balance_for_vvs_corgiai_experimental
-    # - Determine if the arbitrage is profitable after fees
-
-    # TODO: Check for Slippage
-    # - Ensure that the slippage is within an acceptable range
-
-    # TODO: Execute Trades (If profitable and low slippage)
-    # - Approve tokens for the Uniswap Router
-    # - Build and send the swap transaction
-
-    # TODO: Monitor and Log
-    # - Print or log the result of the arbitrage
-    # - Monitor the transaction until it's confirmed
-    return
-
-def calculate_gas_price():
-    print("_____________________________________________________________")
-    current_gas_price = web3.eth.gas_price
-    print(f"Current gas price: {current_gas_price}")
-    print("_____________________________________________________________")
-
-def calculate_discount(lp_price, market_price):
-    discount = ((lp_price - market_price) / market_price) * 100
-    return discount
 
 def get_token_balance(network_rpc, private_key, token_contract_abi, token_contract_address):
     # Initialize Web3
@@ -321,22 +213,58 @@ def get_token_balance(network_rpc, private_key, token_contract_abi, token_contra
 
     return balance
 
+def write_to_file(results, filename):
+    with open(filename, "a") as file:
+        for result in results:
+            file.write(f"{result['dominant_token']}, {result['token0_name']}, {result['token1_name']}, {result['percentage_difference']}\n")
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        file.write(f"____________________________________________________________________{timestamp}\n")
+
 async def main():
-    # while True:
-        # time.sleep(20)  # Pauses the program for 5 seconds
+    while True:
+        time.sleep(180)  # Pauses the program for 5 seconds
         web3 = Web3(Web3.HTTPProvider(network_rpc))
-        # check_lp_balance_for_vvs_corgiai_experimental('0xA922530960A1F94828A7E132EC1BA95717ED1eab') # VVS/Tonic
-        # check_lp_balance_for_vvs_corgiai_experimental('0x4B377121d968Bf7a62D51B96523d59506e7c2BF0') # CRO/Tonic
-        # check_lp_balance_for_vvs_corgiai_experimental('0xbf62c67eA509E86F07c8c69d0286C0636C50270b') # VVS/Cro
+        result1 = uint18LPbalance('0xA922530960A1F94828A7E132EC1BA95717ED1eab') # VVS/Tonic
+        result2 = uint18LPbalance('0x4B377121d968Bf7a62D51B96523d59506e7c2BF0') # CRO/Tonic
+        result3 = uint18LPbalance('0xbf62c67eA509E86F07c8c69d0286C0636C50270b') # VVS/Cro // very good pair for arbitrage, dominant token flips constantly
+
+        write_to_file([result1, result2, result3], "tokenData/tectonic_data.txt")
         print("_________________________________________________________________________________________________")
-        # execute_trade("0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03", "0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2", 2077000000000000000000000, private_key, web3)
-        # check_lp_balance_for_vvs_corgiai_experimental('0x189291476338446c6e62c8a18ef22d3c80eb5f72') # CorgiAI/USDC
-        # check_lp_balance_for_vvs_corgiai_experimental('0x814920D1b8007207db6cB5a2dD92bF0b082BDBa1') # VVS/USDC
-        # check_lp_balance_for_vvs_corgiai_experimental('0xfc07bf38408e4326f99dec96ba94f1e28af68842') # VVS/CorgiAI
+        time.sleep(180)  # Pauses the program for 5 seconds
+        result7 = uint18LPbalance('0xfc07bf38408e4326f99dec96ba94f1e28af68842') # VVS/CORGI
+        result8 = uint18LPbalance('0x8f9baccf9a130a755520cbabb20543adb3006f14') # CRO/CORGI
+        result9 = uint18LPbalance('0xbf62c67eA509E86F07c8c69d0286C0636C50270b') # VVS/Cro
+
+        write_to_file([result7, result8, result9], "tokenData/corgi_data.txt")
         print("_________________________________________________________________________________________________")
-        check_lp_balance_for_vvs_corgiai_experimental('0xe61Db569E231B3f5530168Aa2C9D50246525b6d6') # CRO/USDC
-        check_lp_balance_for_vvs_corgiai_experimental('0xA111C17f8B8303280d3EB01BBcd61000AA7F39F9') # CRO/ETH
-        check_lp_balance_for_vvs_corgiai_experimental('0xfd0Cd0C651569D1e2e3c768AC0FFDAB3C8F4844f') # ETH/USDC
+        time.sleep(180)  # Pauses the program for 5 seconds
+        result4 = uint18LPbalance('0x34d1856ED8BBc20FA7b29776ad273FD8b22967BE') # VVS/VENO
+        result5 = uint18LPbalance('0x523ad524721957c31Ca53512A4E50d82F53c5cAe') # CRO/VENO
+        result6 = uint18LPbalance('0xbf62c67eA509E86F07c8c69d0286C0636C50270b') # VVS/Cro
+
+        write_to_file([result4, result5, result6], "tokenData/veno_data.txt")
+        print("_________________________________________________________________________________________________")
+        time.sleep(180)  # Pauses the program for 5 seconds
+        result10 = uint18LPbalance('0x6ae624714f221964aff3AB8D8276a7ec142a759f') # VVS/FUL
+        result11 = uint18LPbalance('0x9B5a553f3E081999f0a6A3d582fD7Dc49e12761B') # CRO/FUL
+        result12 = uint18LPbalance('0xbf62c67eA509E86F07c8c69d0286C0636C50270b') # VVS/Cro
+
+        write_to_file([result10, result11, result12], "tokenData/ful_data.txt")
+        print("_________________________________________________________________________________________________")
+        time.sleep(180)  # Pauses the program for 5 seconds
+        result13 = uint18LPbalance('0xe61Db569E231B3f5530168Aa2C9D50246525b6d6') # CRO/USDC
+        result14 = uint18LPbalance('0xA111C17f8B8303280d3EB01BBcd61000AA7F39F9') # CRO/ETH
+        result15 = uint18LPbalance('0xfd0Cd0C651569D1e2e3c768AC0FFDAB3C8F4844f') # ETH/USDC
+
+        write_to_file([result13, result14, result15], "tokenData/cro_usdc_eth_data.txt")
+        print("_________________________________________________________________________________________________")
+        time.sleep(180)  # Pauses the program for 5 seconds
+        result16 = uint18LPbalance('0xe61Db569E231B3f5530168Aa2C9D50246525b6d6') # CRO/USDC
+        result17 = uint18LPbalance('0xbf62c67eA509E86F07c8c69d0286C0636C50270b') # CRO/VVS
+        result18 = uint18LPbalance('0x814920D1b8007207db6cB5a2dD92bF0b082BDBa1') # VVS/USDC
+
+        write_to_file([result16, result17, result18], "tokenData/cro_usdc_VVS_data.txt")
+        print("_________________________________________________________________________________________________")
 
 
 if __name__ == '__main__':
@@ -345,7 +273,7 @@ if __name__ == '__main__':
     private_key = os.environ.get('PRIVATE_KEY')
 
     # Token contract details (Replace these with the actual ABI and address)
-    token_contract_abi = load_contract_abi('VVS_abi.json')
+    token_contract_abi = load_contract_abi('ABIs/VVS_abi.json')
     token_contract_address = "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03"  # VVS
 
     # Get token balance

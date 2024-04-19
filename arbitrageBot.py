@@ -21,16 +21,26 @@ from library import (
 balance = None
 balance_in_usd = None
 
+# print(f"Current USD balance {balance_in_usd}")
+
+# Experimental Declarations
+available_token_address = None
+
 def get_lp_reserves(lp_address, lp_abi):
     lp_contract = web3.eth.contract(address=lp_address, abi=lp_abi)
     reserves = lp_contract.functions.getReserves().call()
     return reserves
 
 def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
+    print()
+    print()
     print("_____________________________________________________________")
     print(f'Checking balance for LP pair at address EXPERIMENTAL {lp_address_str}...')
+    print("_____________________________________________________________")
+    print()
+    print()
     lp_address = Web3.to_checksum_address(lp_address_str)
-    lp_abi = load_contract_abi('lp_contract_abi.json')  # Your function to load the ABI
+    lp_abi = load_contract_abi('ABIs/lp_contract_abi.json')  # Your function to load the ABI
 
     # Create a contract object using the same method you used in get_lp_reserves
     lp_contract = web3.eth.contract(address=lp_address, abi=lp_abi)
@@ -53,8 +63,14 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
     token0_decimals = token0_contract.functions.decimals().call()
     token1_name = token1_contract.functions.name().call()
     token1_decimals = token1_contract.functions.decimals().call()
+    print()
+    print()
+    print("_____________________________________________________________")
     print(f"Token 0: {token0_name} ({token0_address}), Decimals: {token0_decimals}")
     print(f"Token 1: {token1_name} ({token1_address}), Decimals: {token1_decimals}")
+    print("_____________________________________________________________")
+    print()
+    print()
 
     # Choose the appropriate function based on the number of decimals
     if token0_decimals == 18 and token1_decimals == 18:
@@ -68,6 +84,8 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
 
     dominant_token = None  # Initialize variable to store the dominant token
 
+    # Transaction is being decided by naming dominant token the one with more USD value 
+    # This needs to be fixes and accounted for
     if is_lp_balanced(percentage_difference):
         print("The LP is balanced.")
     else:
@@ -81,6 +99,9 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
 
     amount_to_trade_token0_lq, amount_to_trade_token1_lq = calculate_trade_amount_to_balance_lp(reserve_token0_usd, reserve_token1_usd, token0_price, token1_price)
 
+    # Dominant Token Calculations:
+
+    # print(f"Current USD balance {balance_in_usd}")
     # Hardcode the amount to trade in USD
     hardcoded_usd_amount = balance_in_usd
     # hardcoded_usd_amount = 40
@@ -124,6 +145,14 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
         gas_fee = Decimal(0.05) / Decimal(token0_price)
         dominant_token_address = token0_address
         target_token_address = token1_address
+    else:
+        toekn_name = ''
+        discount_gain = 0
+        swap_fee = 0
+        gas_fee = 0
+        dominant_token_address = ''
+        target_token_address = ''
+
 
     # Calculate Net Profit
     gross_gain = discount_gain
@@ -141,6 +170,11 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
         swap_fee_usd = swap_fee * Decimal(token0_price)
         gas_fee_usd = gas_fee * Decimal(token0_price)
         net_profit_usd = net_profit * Decimal(token0_price)
+    else:
+        discount_gain_usd = 0
+        swap_fee_usd = 0
+        gas_fee_usd = 0
+        net_profit_usd = 0
 
     print(f"Discount Gain on selling {toekn_name}: {discount_gain} (~${discount_gain_usd:.2f} USD)")
     print(f"Swap Fee on selling {toekn_name}: {swap_fee} (~${swap_fee_usd:.2f} USD)")
@@ -187,7 +221,7 @@ def execute_trade(dominant_token, target_token, amount_to_trade, private_key, we
 
     # Router contract address and ABI
     router_address = '0x145863Eb42Cf62847A6Ca784e6416C1682b1b2Ae'
-    router_abi = load_contract_abi('RouterABI.json')
+    router_abi = load_contract_abi('ABIs/RouterABI.json')
 
     # Initialize contracts
     router_contract = web3.eth.contract(address=router_address, abi=router_abi)
@@ -195,7 +229,7 @@ def execute_trade(dominant_token, target_token, amount_to_trade, private_key, we
     # Token contract addresses and ABIs for dominant and target tokens
     dominant_token_address = dominant_token
     target_token_address = target_token
-    token_abi = load_contract_abi('VVS_abi.json')
+    token_abi = load_contract_abi('ABIs/VVS_abi.json')
 
     # Initialize token contracts
     dominant_token_contract = web3.eth.contract(address=dominant_token_address, abi=token_abi)
@@ -298,16 +332,77 @@ def get_highest_balance_token(web3, private_key, token_data):
 def to_wei(amount, decimals):
     return int(amount * (10 ** decimals))
 
+def has_enough_balance(token_address, amount_needed, web3, private_key):
+    """
+    Check if the wallet has enough balance of a specific token.
+    """
+    # Assuming you have a function `get_token_balance` to fetch the balance of a token
+    balance = get_token_balance(web3, private_key, token_address)
+    return balance >= amount_needed
+
 async def main():
     while True:  # Assuming you want to keep checking
-        time.sleep(20)
+        time.sleep(60) # delay
         token_data = [
-            {'name': 'VVS', 'address': '0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03', 'abi': load_contract_abi('VVS_abi.json')},
-            {'name': 'CRO', 'address': '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23', 'abi': load_contract_abi('CRO_abi.json')},
-            {'name': 'Tonic', 'address': '0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2', 'abi': load_contract_abi('Tonic_abi.json')}
+            {'name': 'VVS', 'address': '0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03', 'abi': load_contract_abi('ABIs/VVS_abi.json')},
+            {'name': 'CRO', 'address': '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23', 'abi': load_contract_abi('ABIs/CRO_abi.json')},
+            {'name': 'Tonic', 'address': '0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2', 'abi': load_contract_abi('ABIs/Tonic_abi.json')}
         ]
 
+        # Experimental Fix
+        #                                      |
+        # Experimental Fix: 1. Token addresses V
+        token_contract_address_VVS = "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03"  # VVS
+        token_contract_address_CRO = "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23" # CRO
+        token_contract_address_TONIC = "0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2" # TONIC
+
+        #                                 |
+        # Experimental Fix: 2. Token ABIs V
+        token_contract_abi_VVS = load_contract_abi('ABIs/VVS_abi.json')
+        token_contract_abi_CRO = load_contract_abi('ABIs/CRO_abi.json')
+        token_contract_abi_TONIC = load_contract_abi('ABIs/Tonic_abi.json')
+
+        #                                     |
+        # Experimental Fix: 3. Token Balances V
+        balance_VVS = get_token_balance(network_rpc, private_key, token_contract_abi_VVS, token_contract_address_VVS)
+        balance_CRO = get_token_balance(network_rpc, private_key, token_contract_abi_CRO, token_contract_address_CRO)
+        balance_TONIC = get_token_balance(network_rpc, private_key, token_contract_abi_TONIC, token_contract_address_TONIC)
+
+        #                                             |
+        # Experimental Fix: 4. Token Balances Fetcher V
+        global balance
+        global balance_in_usd
+        if balance_VVS > 1:
+            # global balance
+            balance = balance_VVS
+            available_token_address = token_contract_address_VVS
+            token_price_in_usd = fetch_token_price_from_coingecko(token_contract_address_VVS)
+            balance_in_usd = balance_VVS * Decimal(token_price_in_usd)
+            print(f"Your VVS token balance is: {balance_VVS} tokens (~${balance_in_usd:.2f} USD)")
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if balance_CRO > 1:
+            # global balance
+            balance = balance_CRO
+            available_token_address = token_contract_address_CRO
+            token_price_in_usd = fetch_token_price_from_coingecko(token_contract_address_CRO)
+            print(f"Your CRO token price is: ${token_price_in_usd}")
+            balance_in_usd = balance_CRO * Decimal(token_price_in_usd)
+            print(f"Your CRO token balance is: {balance_CRO} tokens (~${balance_in_usd:.2f} USD)")
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if balance_TONIC > 1:
+            # global balance
+            balance = balance_TONIC
+            available_token_address = token_contract_address_TONIC
+            token_price_in_usd = fetch_token_price_from_coingecko(token_contract_address_TONIC)
+            balance_in_usd = balance_TONIC * Decimal(token_price_in_usd)
+            print(f"Your TONIC token balance is: {balance_TONIC} tokens (~${balance_in_usd:.2f} USD)")
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         highest_balance_token, highest_balance = get_highest_balance_token(web3, private_key, token_data)
+        print()
         print(f"The token with the highest balance is {highest_balance_token} with {highest_balance} tokens).")
         
         if highest_balance_token == 'Tonic':
@@ -325,11 +420,20 @@ async def main():
 
         # Check if the trade is profitable enough to execute
         if most_profitable_lp['net_profit_usd'] > 0.00 and most_profitable_lp['percentage_difference'] >= 0.4:
-            # Extract dominant and target tokens from the most profitable LP
+
+            # Extract dominant and target tokens from the most profitable LP, this is theoretical data
             dominant_token = most_profitable_lp['dominant_token']
             dominant_token_address = most_profitable_lp['dominant_token_address']
             target_token = most_profitable_lp['token0_name'] if dominant_token == most_profitable_lp['token1_name'] else most_profitable_lp['token1_name']
             target_token_address = most_profitable_lp['target_token_address'] 
+
+            # Experimental IF statement which will determine based on the token in the wallet which token to trade and receive
+            print(f"Available Token Address: {available_token_address})")
+            
+            if dominant_token_address != available_token_address:
+                print(f"You don't have the dominant token {dominant_token}. Trade cannot be executed.")
+                # Maybe log this information for future reference
+                continue  # Exit out of this iteration of the loop
 
             # Calculate the amount to trade based on the dominant token
             amount_to_trade = most_profitable_lp['amount_to_trade_token1'] if dominant_token == most_profitable_lp['token0_name'] else most_profitable_lp['amount_to_trade_token0']
@@ -360,24 +464,16 @@ if __name__ == '__main__':
     network_rpc = os.environ.get('NETWORK_RPC')
     private_key = os.environ.get('PRIVATE_KEY')
 
-    # Token contract details (Replace these with the actual ABI and address)
-    token_contract_abi = load_contract_abi('VVS_abi.json')
-    token_contract_address = "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03"  # VVS
-
-    # Get token balance
-    balance = get_token_balance(network_rpc, private_key, token_contract_abi, token_contract_address)
-
-    if balance is not None:
-        token_price_in_usd = fetch_token_price_from_coingecko(token_contract_address)
-        balance_in_usd = balance * Decimal(token_price_in_usd)
-        print(f"Your token balance is: {balance} tokens (~${balance_in_usd:.2f} USD)")
-
     web3 = Web3(Web3.HTTPProvider(network_rpc))
 
     if web3.is_connected():
+        print()
         print('Connected to Cronos')
+        print()
     else:
+        print()
         print('Something went wrong')
+        print()
 
     try:
         import asyncio

@@ -1,0 +1,117 @@
+
+token1, VVSToken, Tectonic Governance Token, 0.4577850548779009
+token1, Wrapped CRO, Tectonic Governance Token, 0.5449679724089602
+token0, VVSToken, Wrapped CRO, 0.09460988471696904
+____________________________________________________________________2023-11-11 20:29:52
+token1, VVSToken, Tectonic Governance Token, 1.0408245449691038
+None, Wrapped CRO, Tectonic Governance Token, 0.0031956599152996733
+token0, VVSToken, Wrapped CRO, 0.5612076181783037
+____________________________________________________________________2023-11-11 20:41:15
+token1, VVSToken, Tectonic Governance Token, 1.1301260952121843
+token1, Wrapped CRO, Tectonic Governance Token, 1.1366818765860505
+token0, VVSToken, Wrapped CRO, 0.36779314526988943
+____________________________________________________________________2023-11-11 21:00:28
+token1, VVSToken, Tectonic Governance Token, 0.9533060570434997
+token1, Wrapped CRO, Tectonic Governance Token, 0.48629068360134314
+token0, VVSToken, Wrapped CRO, 0.38799179798879785
+____________________________________________________________________2023-11-11 21:19:50
+token1, VVSToken, Tectonic Governance Token, 0.11365274574134746
+token1, Wrapped CRO, Tectonic Governance Token, 0.6207324906335876
+token0, VVSToken, Wrapped CRO, 0.13498572051058175
+____________________________________________________________________2023-11-11 22:49:20
+token1, VVSToken, Tectonic Governance Token, 0.08453175850497098
+token1, Wrapped CRO, Tectonic Governance Token, 0.30040474644496296
+token0, VVSToken, Wrapped CRO, 0.3953832958723369
+____________________________________________________________________2023-11-11 23:08:33
+token0, VVSToken, Tectonic Governance Token, 0.19765273908797557
+token1, Wrapped CRO, Tectonic Governance Token, 0.18153163890706556
+token0, VVSToken, Wrapped CRO, 0.5449749574306735
+____________________________________________________________________2023-11-11 23:27:56
+token0, VVSToken, Tectonic Governance Token, 0.38664567712676123
+token0, Wrapped CRO, Tectonic Governance Token, 0.4738212641388524
+token0, VVSToken, Wrapped CRO, 0.09753605613532633
+____________________________________________________________________2023-11-11 23:47:10
+token1, VVSToken, Tectonic Governance Token, 0.1745963464458515
+token1, Wrapped CRO, Tectonic Governance Token, 0.21896375512461883
+token1, VVSToken, Wrapped CRO, 0.01293747339925245
+____________________________________________________________________2023-11-12 00:06:24
+token1, VVSToken, Tectonic Governance Token, 0.11941413043235405
+token1, Wrapped CRO, Tectonic Governance Token, 1.1830745964884113
+token1, VVSToken, Wrapped CRO, 0.7518413938071166
+____________________________________________________________________2023-11-12 00:25:40
+token1, VVSToken, Tectonic Governance Token, 0.372673447360907
+token1, Wrapped CRO, Tectonic Governance Token, 0.8489631218760625
+token1, VVSToken, Wrapped CRO, 0.20085751216868358
+____________________________________________________________________2023-11-12 00:44:56
+token1, VVSToken, Tectonic Governance Token, 0.8003374449330058
+token1, Wrapped CRO, Tectonic Governance Token, 0.7739286414387853
+token0, VVSToken, Wrapped CRO, 0.5554502364723505
+____________________________________________________________________2023-11-12 01:04:09
+token1, VVSToken, Tectonic Governance Token, 0.43062593396249443
+token1, Wrapped CRO, Tectonic Governance Token, 0.11382873203904496
+token1, VVSToken, Wrapped CRO, 0.34434195253572075
+____________________________________________________________________2023-11-12 01:23:22
+token1, VVSToken, Tectonic Governance Token, 1.1060401113919225
+token1, Wrapped CRO, Tectonic Governance Token, 0.5241896052459635
+token1, VVSToken, Wrapped CRO, 0.0967947499086425
+____________________________________________________________________2023-11-12 01:42:40
+token1, VVSToken, Tectonic Governance Token, 0.951119580631792
+token1, Wrapped CRO, Tectonic Governance Token, 0.6940138678853627
+token0, VVSToken, Wrapped CRO, 0.38869925970815755
+____________________________________________________________________2023-11-12 02:01:54
+token1, VVSToken, Tectonic Governance Token, 0.5598563096690639
+token1, Wrapped CRO, Tectonic Governance Token, 1.1695578501425796
+token0, VVSToken, Wrapped CRO, 0.8117528189804437
+____________________________________________________________________2023-11-12 02:21:09
+token0, VVSToken, Tectonic Governance Token, 0.09404842977072636
+token1, Wrapped CRO, Tectonic Governance Token, 0.7484832779338981
+token0, VVSToken, Wrapped CRO, 0.4194070561141466
+____________________________________________________________________2023-11-12 02:40:23
+token1, VVSToken, Tectonic Governance Token, 0.5491782779609271
+None, Wrapped CRO, Tectonic Governance Token, 0.004944185819007081
+token1, VVSToken, Wrapped CRO, 0.4825861991315031
+____________________________________________________________________2023-11-12 02:59:37
+token1, VVSToken, Tectonic Governance Token, 0.5493239963403104
+token1, Wrapped CRO, Tectonic Governance Token, 0.22076191576327198
+token1, VVSToken, Wrapped CRO, 0.5874628691129089
+____________________________________________________________________2023-11-12 03:18:53
+token1, VVSToken, Tectonic Governance Token, 0.09330553017517719
+token1, Wrapped CRO, Tectonic Governance Token, 0.24319155960512837
+token1, VVSToken, Wrapped CRO, 0.21615554587511399
+____________________________________________________________________2023-11-12 03:38:16
+token0, VVSToken, Tectonic Governance Token, 0.1119126828340793
+token1, Wrapped CRO, Tectonic Governance Token, 0.12768981565470092
+token1, VVSToken, Wrapped CRO, 0.07144978104835709
+____________________________________________________________________2023-11-12 03:57:35
+None, VVSToken, Tectonic Governance Token, 0.006131759885595211
+token1, Wrapped CRO, Tectonic Governance Token, 0.07737140869192019
+None, VVSToken, Wrapped CRO, 0.008220266201016152
+____________________________________________________________________2023-11-12 04:16:55
+token1, VVSToken, Tectonic Governance Token, 0.20213097643837372
+token1, Wrapped CRO, Tectonic Governance Token, 0.7795842949487408
+token0, VVSToken, Wrapped CRO, 0.8916186330537038
+____________________________________________________________________2023-11-12 04:36:15
+token1, VVSToken, Tectonic Governance Token, 0.9216015149308794
+token1, Wrapped CRO, Tectonic Governance Token, 0.6927969028356711
+token1, VVSToken, Wrapped CRO, 0.12814804933759077
+____________________________________________________________________2023-11-12 04:55:41
+token0, VVSToken, Tectonic Governance Token, 0.5415195489857865
+token0, Wrapped CRO, Tectonic Governance Token, 0.048340573630132534
+token0, VVSToken, Wrapped CRO, 0.7546532351271507
+____________________________________________________________________2023-11-12 05:15:06
+token1, VVSToken, Tectonic Governance Token, 0.15222418845551747
+token1, Wrapped CRO, Tectonic Governance Token, 0.054190310600292314
+token0, VVSToken, Wrapped CRO, 0.22047164205826858
+____________________________________________________________________2023-11-12 05:34:26
+token1, VVSToken, Tectonic Governance Token, 0.6280496785588139
+token1, Wrapped CRO, Tectonic Governance Token, 0.7952407454120236
+token0, VVSToken, Wrapped CRO, 0.5062983219475883
+____________________________________________________________________2023-11-12 05:53:44
+token1, VVSToken, Tectonic Governance Token, 0.5717273466267017
+token1, Wrapped CRO, Tectonic Governance Token, 0.09879751155266571
+token1, VVSToken, Wrapped CRO, 0.24224212393107206
+____________________________________________________________________2023-11-12 06:13:04
+token1, VVSToken, Tectonic Governance Token, 0.4920921362439979
+token0, Wrapped CRO, Tectonic Governance Token, 0.4052316398127617
+token1, VVSToken, Wrapped CRO, 0.7798933971916668
+____________________________________________________________________2023-11-12 06:32:29

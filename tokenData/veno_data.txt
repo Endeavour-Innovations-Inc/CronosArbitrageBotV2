@@ -1,0 +1,113 @@
+
+token1, VVSToken, VenoToken, 0.41766917187779945
+token1, Wrapped CRO, VenoToken, 0.8247665645336405
+token0, VVSToken, Wrapped CRO, 0.21286192747634716
+____________________________________________________________________2023-11-11 20:47:39
+token0, VVSToken, VenoToken, 0.25014957670116567
+token1, Wrapped CRO, VenoToken, 0.2289110774487583
+token0, VVSToken, Wrapped CRO, 0.024414303731070515
+____________________________________________________________________2023-11-11 21:07:00
+token0, VVSToken, VenoToken, 0.909582748404232
+token0, Wrapped CRO, VenoToken, 0.8781137771655305
+token1, VVSToken, Wrapped CRO, 0.33925177316429095
+____________________________________________________________________2023-11-11 22:36:29
+token0, VVSToken, VenoToken, 0.897936792638589
+token0, Wrapped CRO, VenoToken, 0.4431484498255463
+token1, VVSToken, Wrapped CRO, 0.2452761929787087
+____________________________________________________________________2023-11-11 22:55:44
+token0, VVSToken, VenoToken, 0.4962802396245609
+token0, Wrapped CRO, VenoToken, 0.3167732101583789
+token1, VVSToken, Wrapped CRO, 0.057623128350839284
+____________________________________________________________________2023-11-11 23:14:59
+token0, VVSToken, VenoToken, 0.655031181209839
+token0, Wrapped CRO, VenoToken, 0.3842885725205075
+token0, VVSToken, Wrapped CRO, 0.42316642526212966
+____________________________________________________________________2023-11-11 23:34:21
+token0, VVSToken, VenoToken, 0.8557637295274537
+token0, Wrapped CRO, VenoToken, 0.8502593657499233
+token0, VVSToken, Wrapped CRO, 0.41288907351175214
+____________________________________________________________________2023-11-11 23:53:35
+token0, VVSToken, VenoToken, 0.5415058268293338
+token0, Wrapped CRO, VenoToken, 1.228808019717372
+token1, VVSToken, Wrapped CRO, 0.6457604504788504
+____________________________________________________________________2023-11-12 00:12:49
+token1, VVSToken, VenoToken, 0.12874063438361028
+token0, Wrapped CRO, VenoToken, 0.1789325086896131
+token0, VVSToken, Wrapped CRO, 0.5116357245813493
+____________________________________________________________________2023-11-12 00:32:04
+token0, VVSToken, VenoToken, 0.24880000222863835
+token0, Wrapped CRO, VenoToken, 0.7725868651192496
+token1, VVSToken, Wrapped CRO, 0.20380418673533285
+____________________________________________________________________2023-11-12 00:51:20
+token0, VVSToken, VenoToken, 0.12422135892140211
+token0, Wrapped CRO, VenoToken, 0.4237284276330702
+token1, VVSToken, Wrapped CRO, 0.42199030226624434
+____________________________________________________________________2023-11-12 01:10:33
+token0, VVSToken, VenoToken, 0.8909585753311469
+token0, Wrapped CRO, VenoToken, 0.2685266386310713
+token0, VVSToken, Wrapped CRO, 0.38710304817397956
+____________________________________________________________________2023-11-12 01:29:48
+token0, VVSToken, VenoToken, 0.5328076788547816
+token1, Wrapped CRO, VenoToken, 0.04012093480870767
+token0, VVSToken, Wrapped CRO, 0.6357963263109255
+____________________________________________________________________2023-11-12 01:49:05
+token0, VVSToken, VenoToken, 0.19440661135544327
+token1, Wrapped CRO, VenoToken, 0.29763353371383516
+token0, VVSToken, Wrapped CRO, 0.3144253299924785
+____________________________________________________________________2023-11-12 02:08:20
+token0, VVSToken, VenoToken, 0.6007636560938446
+token0, Wrapped CRO, VenoToken, 0.17632323067314246
+token0, VVSToken, Wrapped CRO, 0.12219070802749928
+____________________________________________________________________2023-11-12 02:27:34
+token0, VVSToken, VenoToken, 0.5972482018594435
+token0, Wrapped CRO, VenoToken, 0.44636847920400907
+token0, VVSToken, Wrapped CRO, 0.0762489029326719
+____________________________________________________________________2023-11-12 02:46:49
+token0, VVSToken, VenoToken, 0.9019263675901187
+token0, Wrapped CRO, VenoToken, 1.1917239994809248
+token1, VVSToken, Wrapped CRO, 0.9414634125545777
+____________________________________________________________________2023-11-12 03:06:05
+token0, VVSToken, VenoToken, 2.836625472462682
+token0, Wrapped CRO, VenoToken, 2.703686029792287
+token1, VVSToken, Wrapped CRO, 0.5655332611822051
+____________________________________________________________________2023-11-12 03:25:26
+token0, VVSToken, VenoToken, 1.4273167711741925
+token0, Wrapped CRO, VenoToken, 1.6530289918923853
+token1, VVSToken, Wrapped CRO, 0.5725647914684944
+____________________________________________________________________2023-11-12 03:44:42
+token0, VVSToken, VenoToken, 1.1315014227044007
+token0, Wrapped CRO, VenoToken, 0.44513188694349176
+token0, VVSToken, Wrapped CRO, 0.33883221253769136
+____________________________________________________________________2023-11-12 04:04:01
+token0, VVSToken, VenoToken, 1.2849878805845352
+token0, Wrapped CRO, VenoToken, 1.1851503739461864
+token0, VVSToken, Wrapped CRO, 0.060255194112627856
+____________________________________________________________________2023-11-12 04:23:21
+token0, VVSToken, VenoToken, 0.23101329342943272
+token1, Wrapped CRO, VenoToken, 0.5276999031712161
+token0, VVSToken, Wrapped CRO, 0.37115200456338643
+____________________________________________________________________2023-11-12 04:42:42
+token1, VVSToken, VenoToken, 0.5327890311983867
+token1, Wrapped CRO, VenoToken, 0.36131188428214095
+token0, VVSToken, Wrapped CRO, 0.3193099074399798
+____________________________________________________________________2023-11-12 05:02:07
+token1, VVSToken, VenoToken, 0.22716910711260396
+token1, Wrapped CRO, VenoToken, 0.7002175449125247
+token0, VVSToken, Wrapped CRO, 0.17651543132290784
+____________________________________________________________________2023-11-12 05:21:32
+token1, VVSToken, VenoToken, 0.26299234301468466
+token1, Wrapped CRO, VenoToken, 0.4204902020228136
+token0, VVSToken, Wrapped CRO, 0.5537971542389348
+____________________________________________________________________2023-11-12 05:40:51
+token1, VVSToken, VenoToken, 0.32479314016169925
+token1, Wrapped CRO, VenoToken, 0.9526535609811454
+token0, VVSToken, Wrapped CRO, 0.2599857895340649
+____________________________________________________________________2023-11-12 06:00:12
+token1, VVSToken, VenoToken, 0.028285956063556744
+token0, Wrapped CRO, VenoToken, 0.2800769103351778
+token1, VVSToken, Wrapped CRO, 0.21949641915819693
+____________________________________________________________________2023-11-12 06:19:32
+token1, VVSToken, VenoToken, 0.2769342894387977
+token1, Wrapped CRO, VenoToken, 0.3061342801990162
+token1, VVSToken, Wrapped CRO, 1.0752791004935864
+____________________________________________________________________2023-11-12 06:38:53

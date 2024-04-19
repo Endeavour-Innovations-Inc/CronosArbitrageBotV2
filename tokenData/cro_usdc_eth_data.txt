@@ -1,0 +1,109 @@
+
+token1, Wrapped CRO, USD Coin, 0.29568506405707623
+token1, Wrapped CRO, Wrapped Ether, 0.42048698043860266
+token1, USD Coin, Wrapped Ether, 0.1445979031590063
+____________________________________________________________________2023-11-11 20:54:04
+token1, Wrapped CRO, USD Coin, 0.10751833939697476
+token1, Wrapped CRO, Wrapped Ether, 0.06884430565772252
+token1, USD Coin, Wrapped Ether, 0.1622788628817635
+____________________________________________________________________2023-11-11 21:13:25
+token1, Wrapped CRO, USD Coin, 0.25951353065311106
+token0, Wrapped CRO, Wrapped Ether, 0.07314632722298958
+token1, USD Coin, Wrapped Ether, 0.10244673749693799
+____________________________________________________________________2023-11-11 22:42:54
+token1, Wrapped CRO, USD Coin, 0.14978498009326216
+token0, Wrapped CRO, Wrapped Ether, 0.0352550114608499
+token1, USD Coin, Wrapped Ether, 0.04093463643794704
+____________________________________________________________________2023-11-11 23:02:08
+token0, Wrapped CRO, USD Coin, 0.14988698568738273
+token0, Wrapped CRO, Wrapped Ether, 0.21149820632835026
+token1, USD Coin, Wrapped Ether, 0.20120959754863738
+____________________________________________________________________2023-11-11 23:21:32
+token1, Wrapped CRO, USD Coin, 1.100617512951437
+token1, Wrapped CRO, Wrapped Ether, 0.24908590968128935
+token1, USD Coin, Wrapped Ether, 0.32815583945537885
+____________________________________________________________________2023-11-11 23:40:45
+token1, Wrapped CRO, USD Coin, 0.05671690134238508
+token1, Wrapped CRO, Wrapped Ether, 0.12914661165350985
+token1, USD Coin, Wrapped Ether, 0.40978306184397495
+____________________________________________________________________2023-11-11 23:59:58
+token0, Wrapped CRO, USD Coin, 1.6338362859005002
+token0, Wrapped CRO, Wrapped Ether, 1.4463802058115356
+token1, USD Coin, Wrapped Ether, 0.22992037591008152
+____________________________________________________________________2023-11-12 00:19:16
+token1, Wrapped CRO, USD Coin, 0.1712607368285017
+token1, Wrapped CRO, Wrapped Ether, 0.33278658615170953
+token1, USD Coin, Wrapped Ether, 0.3154289995761905
+____________________________________________________________________2023-11-12 00:38:30
+token1, Wrapped CRO, USD Coin, 0.1545806157857786
+token1, Wrapped CRO, Wrapped Ether, 0.0789223475754799
+token1, USD Coin, Wrapped Ether, 0.3733295024779165
+____________________________________________________________________2023-11-12 00:57:44
+token1, Wrapped CRO, USD Coin, 0.5968862510832583
+token1, Wrapped CRO, Wrapped Ether, 0.35250787840975584
+token0, USD Coin, Wrapped Ether, 0.44025314701543505
+____________________________________________________________________2023-11-12 01:16:57
+token1, Wrapped CRO, USD Coin, 0.5348192695279798
+token1, Wrapped CRO, Wrapped Ether, 0.32603232776168234
+token0, USD Coin, Wrapped Ether, 0.31012346426269394
+____________________________________________________________________2023-11-12 01:36:15
+token1, Wrapped CRO, USD Coin, 0.1426005197406248
+token1, Wrapped CRO, Wrapped Ether, 0.48932056324295775
+token0, USD Coin, Wrapped Ether, 0.19771981377400494
+____________________________________________________________________2023-11-12 01:55:30
+token1, Wrapped CRO, USD Coin, 0.19002369127978266
+token0, Wrapped CRO, Wrapped Ether, 0.3004222488955917
+token0, USD Coin, Wrapped Ether, 0.17898693217450531
+____________________________________________________________________2023-11-12 02:14:44
+token1, Wrapped CRO, USD Coin, 0.050570425470294035
+token1, Wrapped CRO, Wrapped Ether, 0.1458083730319473
+token1, USD Coin, Wrapped Ether, 0.17798924750317155
+____________________________________________________________________2023-11-12 02:33:58
+token0, Wrapped CRO, USD Coin, 1.5171944043914558
+token0, Wrapped CRO, Wrapped Ether, 0.8039915830787852
+token1, USD Coin, Wrapped Ether, 0.24013179020855305
+____________________________________________________________________2023-11-12 02:53:14
+token0, Wrapped CRO, USD Coin, 0.40624024584565155
+token0, Wrapped CRO, Wrapped Ether, 0.35941948904525767
+token0, USD Coin, Wrapped Ether, 0.39850348860359064
+____________________________________________________________________2023-11-12 03:12:29
+token0, Wrapped CRO, USD Coin, 0.492011968318883
+token0, Wrapped CRO, Wrapped Ether, 0.7952104604694784
+token0, USD Coin, Wrapped Ether, 0.37509396643834525
+____________________________________________________________________2023-11-12 03:31:51
+token0, Wrapped CRO, USD Coin, 0.08619356941767636
+token0, Wrapped CRO, Wrapped Ether, 0.5305308732873091
+token0, USD Coin, Wrapped Ether, 0.26944645556048796
+____________________________________________________________________2023-11-12 03:51:07
+token1, Wrapped CRO, USD Coin, 0.4041504631017594
+token0, Wrapped CRO, Wrapped Ether, 0.13696236436267084
+token0, USD Coin, Wrapped Ether, 0.26351991594880714
+____________________________________________________________________2023-11-12 04:10:25
+token1, Wrapped CRO, USD Coin, 0.7743023602984915
+token0, Wrapped CRO, Wrapped Ether, 0.09224987901963537
+token0, USD Coin, Wrapped Ether, 0.08672130484470147
+____________________________________________________________________2023-11-12 04:29:46
+token0, Wrapped CRO, USD Coin, 0.02726448558656513
+token0, Wrapped CRO, Wrapped Ether, 1.3916304716735777
+token1, USD Coin, Wrapped Ether, 0.2223919078022913
+____________________________________________________________________2023-11-12 04:49:15
+token0, Wrapped CRO, USD Coin, 0.2630943981374638
+token0, Wrapped CRO, Wrapped Ether, 0.21330966429119544
+token1, USD Coin, Wrapped Ether, 0.26080829249411475
+____________________________________________________________________2023-11-12 05:08:35
+token1, Wrapped CRO, USD Coin, 0.4356151248275045
+token1, Wrapped CRO, Wrapped Ether, 0.2818729562807092
+token1, USD Coin, Wrapped Ether, 0.33013155314373693
+____________________________________________________________________2023-11-12 05:27:59
+token0, Wrapped CRO, USD Coin, 0.24054225325139092
+token0, Wrapped CRO, Wrapped Ether, 0.27040554659043375
+token0, USD Coin, Wrapped Ether, 0.05059563741870998
+____________________________________________________________________2023-11-12 05:47:19
+token0, Wrapped CRO, USD Coin, 0.3379113026860889
+token0, Wrapped CRO, Wrapped Ether, 0.5396973722016817
+token0, USD Coin, Wrapped Ether, 0.29990255489094214
+____________________________________________________________________2023-11-12 06:06:38
+token0, Wrapped CRO, USD Coin, 0.05491304178402565
+token0, Wrapped CRO, Wrapped Ether, 0.28249732864602717
+token0, USD Coin, Wrapped Ether, 0.09878602203118148
+____________________________________________________________________2023-11-12 06:26:01

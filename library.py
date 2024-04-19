@@ -42,6 +42,33 @@ def calculate_imbalance_percent(reserves, prices):
     percentage_difference = abs((reserve_token0_usd - reserve_token1_usd) / average_value) * 100
     return percentage_difference, reserve_token0_usd, reserve_token1_usd  # Make sure to return all three values
 
+def calculate_imbalance_percent_uint_6_18(reserves, prices):
+    reserve_token0, reserve_token1, _ = reserves
+    price_token0, price_token1 = prices
+    reserve_token0_usd = (reserve_token0 / (10 ** 6)) * price_token0
+    reserve_token1_usd = (reserve_token1 / (10 ** 18)) * price_token1
+    average_value = (reserve_token0_usd + reserve_token1_usd) / 2
+    percentage_difference = abs((reserve_token0_usd - reserve_token1_usd) / average_value) * 100
+    return percentage_difference, reserve_token0_usd, reserve_token1_usd  # Make sure to return all three values
+
+def calculate_imbalance_percent_uint_18_6(reserves, prices):
+    reserve_token0, reserve_token1, _ = reserves
+    price_token0, price_token1 = prices
+    reserve_token0_usd = (reserve_token0 / (10 ** 18)) * price_token0
+    reserve_token1_usd = (reserve_token1 / (10 ** 6)) * price_token1
+    average_value = (reserve_token0_usd + reserve_token1_usd) / 2
+    percentage_difference = abs((reserve_token0_usd - reserve_token1_usd) / average_value) * 100
+    return percentage_difference, reserve_token0_usd, reserve_token1_usd  # Make sure to return all three values
+
+def calculate_imbalance_percent_uint_6_6(reserves, prices):
+    reserve_token0, reserve_token1, _ = reserves
+    price_token0, price_token1 = prices
+    reserve_token0_usd = (reserve_token0 / (10 ** 6)) * price_token0
+    reserve_token1_usd = (reserve_token1 / (10 ** 6)) * price_token1
+    average_value = (reserve_token0_usd + reserve_token1_usd) / 2
+    percentage_difference = abs((reserve_token0_usd - reserve_token1_usd) / average_value) * 100
+    return percentage_difference, reserve_token0_usd, reserve_token1_usd  # Make sure to return all three values
+
 def calculate_imbalance_percent_corgiai_usdc(reserves, prices):
     reserve_token0, reserve_token1, _ = reserves  # Assuming token0 is CorgiAI and token1 is USDC
     price_token0, price_token1 = prices
@@ -192,4 +219,9 @@ def calculate_discount(lp_price, market_price):
 def write_to_bookkeeping(token_name, profit_in_token, profit_in_usd):
     with open("bookkeeping.txt", "a") as f:
         f.write(f"Token: {token_name}, Profit in Token: {profit_in_token}, Profit in USD: {profit_in_usd}\n")
+
+def get_lp_reserves(lp_address, lp_abi):
+    lp_contract = Web3.eth.contract(address=lp_address, abi=lp_abi)
+    reserves = lp_contract.functions.getReserves().call()
+    return reserves
 
