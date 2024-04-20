@@ -1,12 +1,10 @@
 import os
 from web3 import Web3
-# from dotenv import load_dotenv
 from utilities.config import NETWORK_RPC, PRIVATE_KEY
 from decimal import Decimal
 import time
-
-# Import functions from library.py
-from utilities.library import (
+from utilities.contracts import get_contract_instance, get_lp_reserves, get_token_details, get_token_addresses
+from utilities.library import ( # Import functions from library.py
     fetch_token_price_from_coingecko,
     load_contract_abi,
     get_token_prices,
@@ -26,11 +24,6 @@ balance_in_usd = None
 
 # Experimental Declarations
 available_token_address = None
-
-def get_lp_reserves(lp_address, lp_abi):
-    lp_contract = web3.eth.contract(address=lp_address, abi=lp_abi)
-    reserves = lp_contract.functions.getReserves().call()
-    return reserves
 
 def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
     print()
