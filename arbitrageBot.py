@@ -5,7 +5,7 @@ from decimal import Decimal
 import time
 
 # Import functions from library.py
-from library import (
+from utilities.library import (
     fetch_token_price_from_coingecko,
     load_contract_abi,
     get_token_prices,
@@ -103,8 +103,8 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
 
     # print(f"Current USD balance {balance_in_usd}")
     # Hardcode the amount to trade in USD
-    hardcoded_usd_amount = balance_in_usd
-    # hardcoded_usd_amount = 40
+    # hardcoded_usd_amount = balance_in_usd
+    hardcoded_usd_amount = 2000
 
     # Convert the amounts to trade into their dollar equivalent
     amount_to_trade_token0_usd = Decimal(amount_to_trade_token0_lq) * Decimal(token0_price)

@@ -5,7 +5,7 @@ from decimal import Decimal
 import time
 
 # Import functions from library.py
-from library import (
+from utilities.library import (
     fetch_token_price_from_coingecko,
     load_contract_abi,
     get_token_prices,

@@ -5,7 +5,7 @@ from decimal import Decimal
 import time
 
 # Import functions from library.py
-from library import (
+from utilities.library import (
     fetch_token_price_from_coingecko,
     load_contract_abi,
     get_token_prices,
@@ -134,13 +134,6 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
         gas_fee = Decimal(0.05) / Decimal(token0_price)
         dominant_token_address = token0_address
         target_token_address = token1_address
-    else:
-        toekn_name = ''
-        discount_gain = 0
-        swap_fee = 0
-        gas_fee = 0
-        dominant_token_address = ''
-        target_token_address = ''
 
     # Calculate Net Profit
     gross_gain = discount_gain
@@ -158,13 +151,6 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
         swap_fee_usd = swap_fee * Decimal(token0_price)
         gas_fee_usd = gas_fee * Decimal(token0_price)
         net_profit_usd = net_profit * Decimal(token0_price)
-    else:
-        discount_gain_usd = 0
-        swap_fee_usd = 0
-        gas_fee_usd = 0
-        net_profit_usd = 0
-
-    # need to add additional condition where the value is balanced, otherwise this causes the crash
 
     print(f"Discount Gain on selling {toekn_name}: {discount_gain} (~${discount_gain_usd:.2f} USD)")
     print(f"Swap Fee on selling {toekn_name}: {swap_fee} (~${swap_fee_usd:.2f} USD)")
@@ -198,7 +184,7 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
     print("_____________________________________________________________")
     return result
     
-def execute_trade(dominant_token, target_token, amount_to_trade, private_key, web3_instance, token_abi):
+def execute_trade(dominant_token, target_token, amount_to_trade, private_key, web3_instance):
     # Initialize Web3
     web3 = web3_instance
 
@@ -211,7 +197,7 @@ def execute_trade(dominant_token, target_token, amount_to_trade, private_key, we
 
     # Router contract address and ABI
     router_address = '0x145863Eb42Cf62847A6Ca784e6416C1682b1b2Ae'
-    router_abi = load_contract_abi('ABIs/RouterABI.json')
+    router_abi = load_contract_abi('RouterABI.json')
 
     # Initialize contracts
     router_contract = web3.eth.contract(address=router_address, abi=router_abi)
@@ -219,7 +205,7 @@ def execute_trade(dominant_token, target_token, amount_to_trade, private_key, we
     # Token contract addresses and ABIs for dominant and target tokens
     dominant_token_address = dominant_token
     target_token_address = target_token
-    # token_abi = load_contract_abi('ABIs/VVS_abi.json')
+    token_abi = load_contract_abi('VVS_abi.json')
 
     # Initialize token contracts
     dominant_token_contract = web3.eth.contract(address=dominant_token_address, abi=token_abi)
@@ -334,9 +320,9 @@ async def main():
     while True:  # Assuming you want to keep checking
         time.sleep(20)
         token_data = [
-            {'name': 'VVS', 'address': '0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03', 'abi': load_contract_abi('ABIs/VVS_abi.json')},
-            {'name': 'CRO', 'address': '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23', 'abi': load_contract_abi('ABIs/CRO_abi.json')},
-            {'name': 'CORGI', 'address': '0x6b431B8a964BFcf28191b07c91189fF4403957D0', 'abi': load_contract_abi('ABIs/CorgiAI_abi.json')}
+            {'name': 'VVS', 'address': '0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03', 'abi': load_contract_abi('VVS_abi.json')},
+            {'name': 'CRO', 'address': '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23', 'abi': load_contract_abi('CRO_abi.json')},
+            {'name': 'Tonic', 'address': '0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2', 'abi': load_contract_abi('Tonic_abi.json')}
         ]
 
         # Experimental Fix
@@ -344,19 +330,19 @@ async def main():
         # Experimental Fix: 1. Token addresses V
         token_contract_address_VVS = "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03"  # VVS
         token_contract_address_CRO = "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23" # CRO
-        token_contract_address_CORGI = "0x6b431B8a964BFcf28191b07c91189fF4403957D0" # CORGI
+        token_contract_address_TONIC = "0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2" # TONIC
 
         #                                 |
         # Experimental Fix: 2. Token ABIs V
-        token_contract_abi_VVS = load_contract_abi('ABIs/VVS_abi.json')
-        token_contract_abi_CRO = load_contract_abi('ABIs/CRO_abi.json')
-        token_contract_abi_CORGI = load_contract_abi('ABIs/CorgiAI_abi.json')
+        token_contract_abi_VVS = load_contract_abi('VVS_abi.json')
+        token_contract_abi_CRO = load_contract_abi('CRO_abi.json')
+        token_contract_abi_TONIC = load_contract_abi('Tonic_abi.json')
 
         #                                     |
         # Experimental Fix: 3. Token Balances V
         balance_VVS = get_token_balance(network_rpc, private_key, token_contract_abi_VVS, token_contract_address_VVS)
         balance_CRO = get_token_balance(network_rpc, private_key, token_contract_abi_CRO, token_contract_address_CRO)
-        balance_CORGI = get_token_balance(network_rpc, private_key, token_contract_abi_CORGI, token_contract_address_CORGI)
+        balance_TONIC = get_token_balance(network_rpc, private_key, token_contract_abi_TONIC, token_contract_address_TONIC)
 
         #                                             |
         # Experimental Fix: 4. Token Balances Fetcher V
@@ -381,31 +367,28 @@ async def main():
             print(f"Your CRO token balance is: {balance_CRO} tokens (~${balance_in_usd:.2f} USD)")
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if balance_CORGI > 1:
+        if balance_TONIC > 1:
             # global balance
-            balance = balance_CORGI
-            available_token_address = token_contract_address_CORGI
-            token_price_in_usd = fetch_token_price_from_coingecko(token_contract_address_CORGI)
-            balance_in_usd = balance_CORGI * Decimal(token_price_in_usd)
-            print(f"Your CORGI token balance is: {balance_CORGI} tokens (~${balance_in_usd:.2f} USD)")
+            balance = balance_TONIC
+            available_token_address = token_contract_address_TONIC
+            token_price_in_usd = fetch_token_price_from_coingecko(token_contract_address_TONIC)
+            balance_in_usd = balance_TONIC * Decimal(token_price_in_usd)
+            print(f"Your TONIC token balance is: {balance_TONIC} tokens (~${balance_in_usd:.2f} USD)")
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         highest_balance_token, highest_balance = get_highest_balance_token(web3, private_key, token_data)
         print(f"The token with the highest balance is {highest_balance_token} with {highest_balance} tokens).")
         
-        if highest_balance_token == 'CORGI':
-            lp1_result = check_lp_balance_for_vvs_corgiai_experimental('0xfc07bf38408e4326f99dec96ba94f1e28af68842')  # VVS/CORGI
-            lp2_result = check_lp_balance_for_vvs_corgiai_experimental('0x8f9baccf9a130a755520cbabb20543adb3006f14')  # CRO/CORGI
-            token_abi = token_contract_abi_CORGI
+        if highest_balance_token == 'Tonic':
+            lp1_result = check_lp_balance_for_vvs_corgiai_experimental('0xA922530960A1F94828A7E132EC1BA95717ED1eab')  # VVS/Tonic
+            lp2_result = check_lp_balance_for_vvs_corgiai_experimental('0x4B377121d968Bf7a62D51B96523d59506e7c2BF0')  # CRO/Tonic
         elif highest_balance_token == 'VVS':
-            lp1_result = check_lp_balance_for_vvs_corgiai_experimental('0xfc07bf38408e4326f99dec96ba94f1e28af68842')  # VVS/CORGI
+            lp1_result = check_lp_balance_for_vvs_corgiai_experimental('0xA922530960A1F94828A7E132EC1BA95717ED1eab')  # VVS/Tonic
             lp2_result = check_lp_balance_for_vvs_corgiai_experimental('0xbf62c67eA509E86F07c8c69d0286C0636C50270b')  # VVS/Cro
-            token_abi = token_contract_abi_VVS
         elif highest_balance_token == 'CRO':
-            lp1_result = check_lp_balance_for_vvs_corgiai_experimental('0x8f9baccf9a130a755520cbabb20543adb3006f14')  # CRO/CORGI
+            lp1_result = check_lp_balance_for_vvs_corgiai_experimental('0x4B377121d968Bf7a62D51B96523d59506e7c2BF0')  # CRO/Tonic
             lp2_result = check_lp_balance_for_vvs_corgiai_experimental('0xbf62c67eA509E86F07c8c69d0286C0636C50270b')  # VVS/Cro
-            token_abi = token_contract_abi_CRO
         
          # Compare LPs and find the most profitable one
         most_profitable_lp = compare_lps(lp1_result, lp2_result)  # Assuming you have a function to compare LPs
@@ -437,7 +420,7 @@ async def main():
             print(f"Target Token Address: {target_token_address})")
             print(f"Amount to Trade: {amount_to_trade})")
             print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-            execute_trade(dominant_token_address, target_token_address, to_wei(amount_to_trade, 18), private_key, web3, token_abi)
+            execute_trade(dominant_token_address, target_token_address, to_wei(amount_to_trade, 18), private_key, web3)
 
             # Log the profit details
             write_to_bookkeeping(dominant_token, most_profitable_lp['net_profit'], most_profitable_lp['net_profit_usd'])
@@ -447,7 +430,6 @@ async def main():
             dominant_token_address = None
             target_token = None
             target_token_address = None
-            token_abi = None
         else:
             print("Trade not profitable enough to execute.")
 
