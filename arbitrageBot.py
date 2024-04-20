@@ -1,6 +1,7 @@
 import os
 from web3 import Web3
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
+from utilities.config import NETWORK_RPC, PRIVATE_KEY
 from decimal import Decimal
 import time
 
@@ -103,8 +104,8 @@ def check_lp_balance_for_vvs_corgiai_experimental(lp_address_str):
 
     # print(f"Current USD balance {balance_in_usd}")
     # Hardcode the amount to trade in USD
-    # hardcoded_usd_amount = balance_in_usd
-    hardcoded_usd_amount = 2000
+    hardcoded_usd_amount = balance_in_usd
+    # hardcoded_usd_amount = 2000
 
     # Convert the amounts to trade into their dollar equivalent
     amount_to_trade_token0_usd = Decimal(amount_to_trade_token0_lq) * Decimal(token0_price)
@@ -364,9 +365,9 @@ async def main():
 
         #                                     |
         # Experimental Fix: 3. Token Balances V
-        balance_VVS = get_token_balance(network_rpc, private_key, token_contract_abi_VVS, token_contract_address_VVS)
-        balance_CRO = get_token_balance(network_rpc, private_key, token_contract_abi_CRO, token_contract_address_CRO)
-        balance_TONIC = get_token_balance(network_rpc, private_key, token_contract_abi_TONIC, token_contract_address_TONIC)
+        balance_VVS = get_token_balance(NETWORK_RPC, PRIVATE_KEY, token_contract_abi_VVS, token_contract_address_VVS)
+        balance_CRO = get_token_balance(NETWORK_RPC, PRIVATE_KEY, token_contract_abi_CRO, token_contract_address_CRO)
+        balance_TONIC = get_token_balance(NETWORK_RPC, PRIVATE_KEY, token_contract_abi_TONIC, token_contract_address_TONIC)
 
         #                                             |
         # Experimental Fix: 4. Token Balances Fetcher V
@@ -401,7 +402,7 @@ async def main():
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        highest_balance_token, highest_balance = get_highest_balance_token(web3, private_key, token_data)
+        highest_balance_token, highest_balance = get_highest_balance_token(web3, PRIVATE_KEY, token_data)
         print()
         print(f"The token with the highest balance is {highest_balance_token} with {highest_balance} tokens).")
         
@@ -446,7 +447,7 @@ async def main():
             print(f"Target Token Address: {target_token_address})")
             print(f"Amount to Trade: {amount_to_trade})")
             print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-            execute_trade(dominant_token_address, target_token_address, to_wei(amount_to_trade, 18), private_key, web3)
+            execute_trade(dominant_token_address, target_token_address, to_wei(amount_to_trade, 18), PRIVATE_KEY, web3)
 
             # Log the profit details
             write_to_bookkeeping(dominant_token, most_profitable_lp['net_profit'], most_profitable_lp['net_profit_usd'])
@@ -459,13 +460,9 @@ async def main():
         else:
             print("Trade not profitable enough to execute.")
 
+web3 = Web3(Web3.HTTPProvider(NETWORK_RPC))
+
 if __name__ == '__main__':
-    load_dotenv()
-    network_rpc = os.environ.get('NETWORK_RPC')
-    private_key = os.environ.get('PRIVATE_KEY')
-
-    web3 = Web3(Web3.HTTPProvider(network_rpc))
-
     if web3.is_connected():
         print()
         print('Connected to Cronos')
