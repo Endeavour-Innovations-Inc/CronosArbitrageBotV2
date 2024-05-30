@@ -1,7 +1,6 @@
 import json
-import requests
 from web3 import Web3
-from decimal import Decimal
+from security import safe_requests
 
 def load_contract_abi(file_name):
     with open(file_name, 'r') as f:
@@ -11,7 +10,7 @@ def fetch_token_price_from_coingecko(contract_address):
     platform_id = 'cronos'
     contract_address_lower = contract_address.lower()
     url = f"https://api.coingecko.com/api/v3/simple/token_price/{platform_id}?contract_addresses={contract_address_lower}&vs_currencies=usd"
-    response = requests.get(url)
+    response = safe_requests.get(url)
     if response.status_code == 200:
         data = json.loads(response.text)
         try:
