@@ -11,7 +11,7 @@ def fetch_token_price_from_coingecko(contract_address):
     platform_id = 'cronos'
     contract_address_lower = contract_address.lower()
     url = f"https://api.coingecko.com/api/v3/simple/token_price/{platform_id}?contract_addresses={contract_address_lower}&vs_currencies=usd"
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
     if response.status_code == 200:
         data = json.loads(response.text)
         try:
